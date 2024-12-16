@@ -1,16 +1,3 @@
-/*const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize('mongodb+srv://carloseduardociotta:mongodb159753@ciotta.am99pad.mongodb.net/?retryWrites=true&w=majority');
-
-sequelize
-    .authenticate()
-    .then(() => console.log('Authenticated'))
-    .catch(() => console.log('Error Auth'));
-
-sequelize.sync();
-
-module.exports = sequelize;*/
-
 const mongoose = require('mongoose');
 
 const uri = 'mongodb+srv://ndstr:<password>@cluster0.pfyukxj.mongodb.net/?retryWrites=true&w=majority';
