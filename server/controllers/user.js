@@ -79,4 +79,28 @@ module.exports = {
             res.status(500).json({message:'Erro interno no servidor'});
         }
     },
+    async Login(req,res){
+        require('dotenv-safe').config();
+        const jwt = require('jsonwebtoken');
+        const { id_user, password } = req.body
+
+        try{
+            const user_db = await User.findOne({id_user:id_user});
+            if (user_db) {
+                if(id_user === user_db.id_user && password === user_db.password){
+
+                    const id = user_db.id_user;
+                    const token = jwt.sign({ id }, process.env.SECRET, {expiresIn: '5h'});
+
+                    return res.status(200).json({ auth: true, token: token });
+                }
+                
+                res.status(500).json({message: 'Login inválido!'});
+            } else {
+                return res.status(204).json({message:'Usuário não encontrado'})
+            }
+        }catch(error){
+            return res.status(500).json({message:'Erro interno no servidor'});
+        }
+    }
 };
