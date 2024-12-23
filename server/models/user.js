@@ -4,7 +4,8 @@ const userSchema = new mongoose.Schema({
   id_user: {
     type: Number,
     required: true,
-    unique: true
+    unique: true,
+    _id: true 
   },
   tipo: {
     type: String,
@@ -16,6 +17,6 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema,'CiottaCloud');
 
 module.exports = User;

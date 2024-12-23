@@ -1,4 +1,4 @@
-import User from "../models/User";
+const User = require('../models/user')
 
 module.exports = {
     async getAll(_,res) {
@@ -42,8 +42,8 @@ module.exports = {
                 return res.status(201).json(user);
             }
             
-        } catch{
-            return res.status(500).json({ error: 'Erro interno no servidor' });
+        } catch(err){
+            return res.status(500).json(err);
         }
     },
 
@@ -52,14 +52,14 @@ module.exports = {
         try {
             const user_aux = await User.findOne({id_user:id_user})
             if(user_aux){
-                const user = await User.findByIdAndDelete(id_user);
-                return res.status(200).json('Usuário excluido :', user);
+                const user = await User.findOneAndDelete(id_user);
+                return res.status(200).json({message:'Usuário excluido :', user});
             }
             else{
                 return res.status(204).json({message:'Usuário não encontrado'})
             }
-        } catch{
-            return res.status(500).json({ error: 'Erro interno no servidor' });
+        } catch(err){
+            return res.status(500).json(err);
         }
     },
 

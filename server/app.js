@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const usersRoutes = require('../server/routes/user')
 const entregasRoutes = require('../server/routes/entregas')
+const connectDB = require('./config/db')
 
+connectDB()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -20,3 +22,4 @@ app.use((err, res) => {
 const PORT = 3000
 app.listen(/*process.env.PORT*/PORT, () => {
 console.log(`Servidor rodando`);});
+module.exports = app

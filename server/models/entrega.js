@@ -4,7 +4,8 @@ const entregaSchema = new mongoose.Schema({
   id_entrega: {
     type: Number,
     required: true,
-    unique: true
+    unique: true,
+    _id: true  
   },
   id_veiculo: {
     type: Number,
@@ -40,6 +41,6 @@ const entregaSchema = new mongoose.Schema({
   }
 });
 
-const Entrega = mongoose.model('Entrega', entregaSchema);
+const Entrega = mongoose.model('Entrega', entregaSchema, 'CiottaCloud');
 
 module.exports = Entrega;
