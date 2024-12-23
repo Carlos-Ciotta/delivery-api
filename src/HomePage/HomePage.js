@@ -3,27 +3,25 @@ import axios from 'axios';
 
 async function handleLogin(user, psswrd){
   try{
-    await axios.post('http://localhost:3000/user/login', {id_user,password}).then((response) => {
+    await axios.post('http://localhost:3000/user/login', {user,psswrd}).then((response) => {
       if (response.status === 200) {
         const { auth, token } = response.data;
-        console.log('Auth:', auth);
-        console.log('Token:', token);
-        
+        return token
       }
     })
     .catch(erro => {
-      erro = 'Login inválido'
+      return erro = 'Login inválido'
     });
   }catch{
-      erro = 'Erro interno no servidor'
+      return erro = 'Erro interno no servidor'
   }
   
 }
 
 function HomePage() {
-  const [id_user, setIdUser] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  let [id_user, setIdUser] = useState('');
+  let [password, setPassword] = useState('');
+  let [error, setError] = useState('');
     return(
       <div>
       <h2>Logo aqui</h2>

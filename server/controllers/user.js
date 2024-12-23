@@ -1,17 +1,17 @@
 import User from "../models/User";
 
 module.exports = {
-    async getAll(res) {
+    async getAll(_,res) {
         try {
             const users = await User.find().select('id_user tipo password -_id');
             if(users){
-                res.status(200).json(users);
+                return res.status(200).json(users);
             }else{
-                res.status(204).json({message:'Sem usuários cadastrados'})
+                return res.status(204).json({message:'Sem usuários cadastrados'})
             }
             
-        } catch (error) {
-            res.status(500).json({message:'Erro interno no servidor'});
+        } catch{
+            return res.status(500).json({message:'Erro interno no servidor'});
         }
     },
 
@@ -20,12 +20,12 @@ module.exports = {
         try{
             const user = await User.findOne({id_user:id});
             if (user) {
-                res.status(200).json(user);
+                return res.status(200).json(user);
             } else {
-                res.status(204).json({message:'Usuário não encontrado'})
+                return res.status(204).json({message:'Usuário não encontrado'})
             }
-        }catch(error){
-            res.status(500).json({message:'Erro interno no servidor'});
+        }catch{
+            return res.status(500).json({message:'Erro interno no servidor'});
         }
     },
 
@@ -34,17 +34,16 @@ module.exports = {
         try {
             const aux = await User.findOne({id_user:id_user});
             if(aux){
-                res.status(208).json({message:'Usuário já existe'})
+                return res.status(208).json({message:'Usuário já existe'})
             }
             else{
                 const user = new User ({ id_user,tipo, password });
                 await user.save();
-                res.status(201).json(user);
+                return res.status(201).json(user);
             }
             
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Erro interno no servidor' });
+        } catch{
+            return res.status(500).json({ error: 'Erro interno no servidor' });
         }
     },
 
@@ -54,13 +53,13 @@ module.exports = {
             const user_aux = await User.findOne({id_user:id_user})
             if(user_aux){
                 const user = await User.findByIdAndDelete(id_user);
-                res.status(200).json('Usuário excluido :', user);
+                return res.status(200).json('Usuário excluido :', user);
             }
             else{
-                res.status(204).json({message:'Usuário não encontrado'})
+                return res.status(204).json({message:'Usuário não encontrado'})
             }
-        } catch (error) {
-            res.status(500).json({ error: 'Erro interno no servidor' });
+        } catch{
+            return res.status(500).json({ error: 'Erro interno no servidor' });
         }
     },
 
@@ -70,13 +69,13 @@ module.exports = {
             const user = await User.findOne({id_user:id_user});
             if (user) {
                 const userupdate = await User.findOneAndUpdate({ id_user: id_user }, req.body, { new: true });
-                res.status(200).json({message:'Usuário atualizado', userupdate});
+                return res.status(200).json({message:'Usuário atualizado', userupdate});
             } else {
-                res.status(204).json({message:'Usuário não encontrado'})
+                return res.status(204).json({message:'Usuário não encontrado'})
             }
         }
-        catch (error) {
-            res.status(500).json({message:'Erro interno no servidor'});
+        catch {
+            return res.status(500).json({message:'Erro interno no servidor'});
         }
     },
     async Login(req,res){
@@ -95,7 +94,7 @@ module.exports = {
                     return res.status(200).json({ auth: true, token: token });
                 }
                 
-                res.status(500).json({message: 'Login inválido!'});
+                return res.status(500).json({message: 'Login inválido!'});
             } else {
                 return res.status(204).json({message:'Usuário não encontrado'})
             }
