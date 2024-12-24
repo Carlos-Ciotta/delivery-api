@@ -20,6 +20,6 @@ app.use((err, res) => {
 });
 
 const PORT = 3000
-app.listen(/*process.env.PORT*/PORT, () => {
+app.listen(process.env.PORT/*PORT*/, () => {
 console.log(`Servidor rodando`);});
 module.exports = app

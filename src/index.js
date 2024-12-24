@@ -1,13 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 
 import reportWebVitals from './reportWebVitals';
 import HomePage from './HomePage/HomePage';
+import GerenciaEntrega from './Operadores/GerenciaEntrega';
+import InsereEntrega from './Operadores/InsereEntrega';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <HomePage />
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/gerenciar" element={<GerenciaEntrega />} />
+        <Route path="/inserir" element={<InsereEntrega />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 

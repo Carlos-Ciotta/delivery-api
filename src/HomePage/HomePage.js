@@ -1,19 +1,28 @@
 import { useState } from 'react';
 import axios from 'axios';
+//require('dotenv').config()
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
   let [id_user, setIdUser] = useState('');
   let [password, setPassword] = useState('');
   let [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async(event) => {
     event.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/user/login', {id_user,password});
-
       if (response.status === 200) {
-        const { auth, token } = response.data;
+        const { auth, _ } = response.data;
         setError('')
+        if(auth === 'opera-entregas'){
+          navigate('/gerenciar')
+        }else if (auth === 'insere-entregas'){
+          navigate('/inserir')
+        }else{
+          navigate('/')
+        }
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {

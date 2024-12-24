@@ -44,6 +44,8 @@
   },
   "devDependencies": {
     "ajv": "^7.2.4",
-    "axios": "^1.7.9"
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "react-router-dom": "^7.1.1"
   }
 }
