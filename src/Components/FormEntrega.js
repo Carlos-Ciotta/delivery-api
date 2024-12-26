@@ -18,8 +18,6 @@ function BasicTextFields() {
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-      <TextField id="filled-basic" label="Filled" variant="filled" />
       <TextField id="standard-basic" label="Standard" variant="standard" />
     </Box>
   );
@@ -41,8 +39,8 @@ function ControlledRadioButtonsGroup() {
         value={value}
         onChange={handleChange}
       >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="1" control={<Radio />} label="1" />
+        <FormControlLabel value="2" control={<Radio />} label="2" />
       </RadioGroup>
     </FormControl>
   );
