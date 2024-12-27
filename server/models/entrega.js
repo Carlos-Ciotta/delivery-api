@@ -27,7 +27,7 @@ const entregaSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  hora_entrega: {
+  periodo_entrega: {
     type: String,
     required: true,
   },

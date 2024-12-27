@@ -14,47 +14,66 @@ function BasicTextFields() {
   return (
     <Box
       component="form"
-      sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+      sx={{ '& > :not(style)': { m: 1, width: '55ch' } }}
       noValidate
       autoComplete="off"
     >
-      <TextField id="standard-basic" label="Standard" variant="standard" />
+      <TextField id="id_pedido" label="Número Pedido" variant="outlined" /><br></br>
+      <TextField id="cliente" label="Cliente" variant="outlined" /><br></br>
+      <TextField id="observacao" label="Observações (opcional)" variant="outlined" />
     </Box>
   );
 }
 
-function ControlledRadioButtonsGroup() {
-  const [value, setValue] = React.useState('female');
+function RadioButtonGroup(tipo) {
+  const [value, setValue] = React.useState('');
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+  if (tipo ==='vendedores'){
+    return (<FormControl>
+    <FormLabel id="vendedor-radiobutton">Vendedor</FormLabel>
+    <RadioGroup
+      aria-labelledby="demo-controlled-radio-buttons-group"
+      name="controlled-radio-buttons-group"
+      value={value}
+      onChange={handleChange}
+    >
+      <FormControlLabel value="terezinha" control={<Radio />} label="Terezinha" />
+      <FormControlLabel value="carlos" control={<Radio />} label="Carlos" />
+      <FormControlLabel value="evandro" control={<Radio />} label="Evandro" />
+      <FormControlLabel value="eliane" control={<Radio />} label="Eliane" />
+      <FormControlLabel value="elcir" control={<Radio />} label="Elcir" />
+    </RadioGroup>
+  </FormControl>);
 
-  return (
-    <FormControl>
-      <FormLabel id="demo-controlled-radio-buttons-group">Gender</FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-controlled-radio-buttons-group"
-        name="controlled-radio-buttons-group"
-        value={value}
-        onChange={handleChange}
-      >
-        <FormControlLabel value="1" control={<Radio />} label="1" />
-        <FormControlLabel value="2" control={<Radio />} label="2" />
-      </RadioGroup>
-    </FormControl>
-  );
+  }else if (tipo==='periodos'){
+    return(<FormControl>
+    <FormLabel id="periodos-radiobutton">Período</FormLabel>
+    <RadioGroup
+      aria-labelledby="demo-controlled-radio-buttons-group"
+      name="controlled-radio-buttons-group"
+      value={value}
+      onChange={handleChange}
+    >
+      <FormControlLabel value="manha" control={<Radio />} label="Manhã" />
+      <FormControlLabel value="tarde" control={<Radio />} label="Tarde" />
+      
+    </RadioGroup>
+  </FormControl>);
+  }
 }
 
-function ControllableStates() {
+
+
+function BairroSelect() {
   const options = ['Option 1', 'Option 2'];
-  const [value, setValue] = React.useState(options[0]);
+  const [value, setValue] = React.useState('');
   const [inputValue, setInputValue] = React.useState('');
 
   return (
     <div>
-      <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
-      <div>{`inputValue: '${inputValue}'`}</div>
       <br />
       <Autocomplete
         value={value}
@@ -65,20 +84,23 @@ function ControllableStates() {
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue);
         }}
-        id="controllable-states-demo"
+        id="bairro-select"
         options={options}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Controllable" />}
+        renderInput={(params) => <TextField {...params} label="Bairro" />}
       />
     </div>
   );
 }
 export default function FormEntrega(){
+  const vendedores = RadioButtonGroup('vendedores');
+  const periodos = RadioButtonGroup('periodos');
     return(
         <div>
             <BasicTextFields />
-            <ControlledRadioButtonsGroup />
-            <ControllableStates />
+            {vendedores}
+            <BairroSelect />
+            {periodos}
             <Stack direction="row" spacing={2}>
             <Button variant="outlined">
                 Atualizar
