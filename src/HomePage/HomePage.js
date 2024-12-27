@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
-//require('dotenv').config()
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
@@ -36,25 +38,20 @@ function HomePage() {
     return(
       <div>
         <h2>Logo aqui</h2>
+        
         <form onSubmit={handleLogin}>
-          <label htmlFor="id_user">Usuário</label>
-          <input
-            type="text"
-            id="id_user"
-            value={id_user}
-            onChange={(e) => setIdUser(e.target.value)}
-            required
-          />
-            <label htmlFor="password">Senha</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          {error && <p>{error}</p>}
-          <button type='submit'>Entrar</button>
+          <Box
+            component="form"
+            sx={{ '& > :not(style)': { m: 1, width: '55ch' } }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField id="id_user" label="Usuário" variant="outlined" onChange={(e) => setIdUser(e.target.value)} required/><br></br>
+            <TextField id="password" label="Senha" variant="outlined" onChange={(e) => setPassword(e.target.value)} required/><br></br>
+            <TextField id="observacao" label="Observações (opcional)" variant="outlined" />
+          </Box>
+          {error && <p>{error}</p>}<br></br>
+          <Button variant="contained" type='submit'>Entrar</Button>
         </form>
       </div>
     );

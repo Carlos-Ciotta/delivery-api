@@ -6,7 +6,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import Autocomplete from '@mui/material/Autocomplete';
+import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
@@ -75,7 +75,7 @@ function BairroSelect() {
   return (
     <div>
       <br />
-      <Autocomplete
+      <Select
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
@@ -101,7 +101,7 @@ export default function FormEntrega(){
             {vendedores}
             <BairroSelect />
             {periodos}
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={10}>
             <Button variant="outlined">
                 Atualizar
             </Button>

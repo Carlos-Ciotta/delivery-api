@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Select, MenuItem } from '@mui/material';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -30,9 +24,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
-
-export default function DynamicTable(URL){
+export default function DynamicTable({ URL }) {
   const [tableHead, setTableHead] = useState([]); // Cabeçalho da tabela
   const [tableData, setTableData] = useState([]); // Dados da tabela
 
@@ -44,8 +36,8 @@ export default function DynamicTable(URL){
         const entregas = response.data;
 
         if (entregas.length > 0) {
-          // Dinamicamente configura o cabeçalho
-          setTableHead(Object.keys(entregas[0]));
+          // Dinamicamente configura o cabeçalho e adiciona "Ações" e "Opções"
+          setTableHead([...Object.keys(entregas[0]), "Opções", "Ações"]);
 
           // Converte objetos para arrays para exibir na tabela
           const formattedData = entregas.map((entrega) =>
@@ -59,19 +51,107 @@ export default function DynamicTable(URL){
     };
 
     fetchEntregas();
-  }, []);
+  }, [URL]);
 
+  if(tipo === 'caminhao'){
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
-      <TableHead>
-          <TableRow>{tableHead.map((header, index) => (<StyledTableCell key={index} align="center">{header}</StyledTableCell>))}
+        <TableHead>
+          <TableRow>
+            {tableHead.map((header, index) => (
+              <TableCell key={index} align="center">{header}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
-        <TableBody>{tableData.map((row, rowIndex) => (<StyledTableRow key={rowIndex}>{row.map((cell, cellIndex) => (<StyledTableCell key={cellIndex} align="center">
-        {cell}</StyledTableCell>))}</StyledTableRow>))}
+        <TableBody>
+          {tableData.map((row, rowIndex) => (
+            <TableRow key={rowIndex}>
+              {row.map((cell, cellIndex) => (
+                <TableCell key={cellIndex} align="center">
+                  {cell}
+                </TableCell>
+              ))}
+              <TableCell align="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => console.log(`Button clicked for row ${rowIndex}`)}
+                >
+                  Retirar
+                </Button>
+              </TableCell>
+              <TableCell align="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => console.log(`Button clicked for row ${rowIndex}`)}
+                >
+                  Finalizar
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
+  }else if (tipo ==='operador'){
+    return (
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            {tableHead.map((header, index) => (
+              <TableCell key={index} align="center">{header}</TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {tableData.map((row, rowIndex) => (
+            <TableRow key={rowIndex}>
+              {row.map((cell, cellIndex) => (
+                <TableCell key={cellIndex} align="center">
+                  {cell}
+                </TableCell>
+              ))}
+              <TableCell align="center">
+                <Select
+                  defaultValue=""
+                  onChange={(e) => console.log(`Selected option: ${e.target.value} for row ${rowIndex}`)}
+                >
+                  <MenuItem value=""><em>Selecione</em></MenuItem>
+                  <MenuItem value="volkswagen">Volkswagen</MenuItem>
+                  <MenuItem value="ford">Ford</MenuItem>
+                </Select>
+              </TableCell>
+              <TableCell align="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => console.log(`Button clicked for row ${rowIndex}`)}
+                >
+                  Enviar
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>);
+
+  }else if (tipo ==='geral'){
+    return (
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+            <TableRow>{tableHead.map((header, index) => (<StyledTableCell key={index} align="center">{header}</StyledTableCell>))}
+            </TableRow>
+          </TableHead>
+          <TableBody>{tableData.map((row, rowIndex) => (<StyledTableRow key={rowIndex}>{row.map((cell, cellIndex) => (<StyledTableCell key={cellIndex} align="center">
+          {cell}</StyledTableCell>))}</StyledTableRow>))}
+          </TableBody>
+        </Table>
+      </TableContainer>);
+  }
 };
