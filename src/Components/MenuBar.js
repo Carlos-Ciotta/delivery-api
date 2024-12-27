@@ -1,21 +1,28 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Box from '@mui/material/Box';
-import { useNavigate } from 'react-router-dom';
-
-function Navigate(tipo){
-    const nav = useNavigate();
-    if(tipo === 'inserir'){
-        nav('/inserirform')
-    }else if (tipo === 'alterar'){
-        nav('/alterarform')
-    }else if (tipo === 'logout'){
-
-    }
-}
+import { useState } from 'react';
+import FormEntrega from './FormEntrega';
+import { Button, ButtonGroup, Box, Dialog, DialogContent } from '@mui/material'
 
 export default function MenuBar() {
+    const [openInserir, setOpenInserir] = useState(false);
+    const [openAlterar, setOpenAlterar] = useState(false);
+
+    const handleOpenInserir = () => {
+      setOpenInserir(true);
+    };
+  
+    const handleCloseInserir = () => {
+      setOpenInserir(false);
+    };
+
+    const handleOpenAlterar = () => {
+        setOpenAlterar(true);
+      };
+    
+    const handleCloseAlterar = () => {
+        setOpenAlterar(false);
+      };
+    const forminserir = FormEntrega('cadastrar');
+    const formalterar = FormEntrega('alterar');
   return (
     <Box
       sx={{
@@ -28,10 +35,24 @@ export default function MenuBar() {
       }}
     >
       <ButtonGroup variant="outlined" aria-label="Basic button group">
-        <Button onClick={Navigate('inserir')}>Inserir</Button>
-        <Button onClick={Navigate('alterar')}>Alterar</Button>
-        <Button onClick={Navigate('logout')}>Sair</Button>
+        <Button onClick={handleOpenInserir}>Inserir</Button>
+        <Button onClick={handleOpenAlterar}>Alterar</Button>
+        <Button>Sair</Button>
       </ButtonGroup>
+
+      <Dialog open={openInserir} onClose={handleCloseInserir} fullWidth maxWidth="sm">
+        <DialogContent>
+          {forminserir}<br></br>
+          <Button onClick={handleCloseInserir} variant="contained">Cancelar</Button>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={openAlterar} onClose={handleCloseAlterar} fullWidth maxWidth="sm">
+        <DialogContent>
+          {formalterar}<br></br>
+          <Button onClick={handleCloseAlterar} variant="contained">Cancelar</Button>
+        </DialogContent>
+      </Dialog>
 
     </Box>
   );

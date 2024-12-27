@@ -1,16 +1,8 @@
 import React from "react";
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { Button, Radio, RadioGroup, FormControlLabel,FormControl, FormLabel, Box, TextField, Autocomplete } from '@mui/material'
 
 function BasicTextFields() {
+  
   return (
     <Box
       component="form"
@@ -68,36 +60,32 @@ function RadioButtonGroup(tipo) {
 function ButtonGroup(tipo){
   if(tipo === 'cadastrar'){
     return(
-      <Stack direction="row" spacing={10}>
             <Button variant="contained">
                 Cadastrar
             </Button>
-            <Button variant="contained">
-                Sair
-            </Button>
-            </Stack>
     );
-  }else if (tipo ==='alterar'){
-    <Stack direction="row" spacing={10}>
-            <Button variant="outlined">
-                Atualizar
-            </Button>
+  }else if (tipo === 'alterar'){
+    return (
             <Button variant="contained">
-                Sair
+                Alterar
             </Button>
-            </Stack>
+    );
   }
 }
 
 function BairroSelect() {
-  const options = ['Option 1', 'Option 2'];
+  const options =['Esplanada','Palmital','São Vendelino','Agua Amarela','Seminário','Quedas do Palmital','Universitário','Linha das Palmeira',
+                  'Linha São Rafael','Lajeado Veríssimo','Linha São Francisco','Linha Pequena','Dom José Gomes','Aldeia Indígena Condá','Santa Maria','Santo Antônio','Saic',
+                  'Maria Goretti','Jardim Itália','São Pedro','Efapi','São Cristóvão','Trevo','Passo dos Fortes','Pinheirinho','Expoente','Monte Castelo','Cordilheira Alta',
+                  'Monte Alegre','Centro','Ludovico Silvestre','Bom Pastor','Caic','Lider','Vila Real','Aeroporto','Passo dos Ferreira','Marechal Bormann','Parque das Palmeiras',
+                  'Assentamento Dom José Gomes','Presidente Médici'];
   const [value, setValue] = React.useState('');
   const [inputValue, setInputValue] = React.useState('');
 
   return (
     <div>
       <br />
-      <Select
+      <Autocomplete
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
