@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { styled } from '@mui/material/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Select, MenuItem } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Select, MenuItem, tableCellClasses } from '@mui/material';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -24,7 +24,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function DynamicTable({ URL }) {
+export default function DynamicTable({ URL, tipo }) {
   const [tableHead, setTableHead] = useState([]); // Cabeçalho da tabela
   const [tableData, setTableData] = useState([]); // Dados da tabela
 

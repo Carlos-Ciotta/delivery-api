@@ -18,7 +18,7 @@ module.exports = {
         const { tipo } = req.params;
         if (tipo == 'usuario'){
             try {
-                const entregas = await Entrega.find({ situacao: { $in: ['Aguardando', 'Em andamento'] }}).sort({ situacao: 1 }).select('id_entrega nome_cliente bairro situacao vendedor observacao hora_entrega data_entrega -_id');
+                const entregas = await Entrega.find({ situacao: { $in: ['Aguardando', 'Em andamento'] }}).sort({ situacao: 1 }).select('id_entrega nome_cliente bairro situacao vendedor observacao hora_entrega data_entrega');
                 return res.status(200).json(entregas);
             } catch{
                 return res.status(500).json({message:'Erro interno no servidor'});
@@ -28,17 +28,17 @@ module.exports = {
         if (tipo =='operador'){
             const { situacao, id_veiculo } = req.params;
             try {
-                const entregas = await Entrega.find({ situacao, id_veiculo }).select('id_entrega nome_cliente bairro hora_entrega data_entrega observacao situacao -_id');
+                const entregas = await Entrega.find({ situacao, id_veiculo }).select('id_entrega nome_cliente bairro hora_entrega data_entrega observacao situacao');
                 return res.status(200).json(entregas);
             } catch{
                 return res.status(500).json({message:'Erro interno no servidor'});
             }
         }
 
-        if (tipo =='operador2'){
+        if (tipo =='caminhao'){
             const { situacao, id_veiculo } = req.params;
             try {
-                const entregas = await Entrega.find({ situacao, id_veiculo }).select('id_entrega nome_cliente bairro -_id');
+                const entregas = await Entrega.find({ situacao, id_veiculo }).select('id_entrega nome_cliente bairro');
                 return res.status(200).json(entregas);
             } catch {
                 return res.status(500).json({message:'Erro interno no servidor'});
@@ -53,7 +53,7 @@ module.exports = {
         }
         else{
             try {
-                const entregas = await Entrega.find({ situacao: { $in: 'Entregue'}}).limit(quantidade).select('id_entrega nome_cliente bairro situacao vendedor observacao -_id');
+                const entregas = await Entrega.find({ situacao: { $in: 'Entregue'}}).limit(quantidade).select('id_entrega nome_cliente bairro situacao vendedor observacao');
                 res.status(200).json(entregas);
             } catch  {
                 return res.status(500).json({ message: 'Erro interno no servidor' });

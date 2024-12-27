@@ -65,7 +65,29 @@ function RadioButtonGroup(tipo) {
   }
 }
 
-
+function ButtonGroup(tipo){
+  if(tipo === 'cadastrar'){
+    return(
+      <Stack direction="row" spacing={10}>
+            <Button variant="contained">
+                Cadastrar
+            </Button>
+            <Button variant="contained">
+                Sair
+            </Button>
+            </Stack>
+    );
+  }else if (tipo ==='alterar'){
+    <Stack direction="row" spacing={10}>
+            <Button variant="outlined">
+                Atualizar
+            </Button>
+            <Button variant="contained">
+                Sair
+            </Button>
+            </Stack>
+  }
+}
 
 function BairroSelect() {
   const options = ['Option 1', 'Option 2'];
@@ -92,23 +114,17 @@ function BairroSelect() {
     </div>
   );
 }
-export default function FormEntrega(){
+export default function FormEntrega(tipo){
   const vendedores = RadioButtonGroup('vendedores');
   const periodos = RadioButtonGroup('periodos');
+  const button = ButtonGroup(tipo);
     return(
         <div>
             <BasicTextFields />
             {vendedores}
             <BairroSelect />
             {periodos}
-            <Stack direction="row" spacing={10}>
-            <Button variant="outlined">
-                Atualizar
-            </Button>
-            <Button variant="contained">
-                Cadastrar
-            </Button>
-            </Stack>
+            {button}
         </div>
     );
 

@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import HomePage from './HomePage/HomePage';
 import GerenciaEntrega from './Operadores/GerenciaEntrega';
 import InsereEntrega from './Operadores/InsereEntrega';
+import InsereEntregaHP from './Operadores/InsereEntregaHP';
+import AlteraEntrega from './Operadores/AlteraEntrega';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -16,7 +18,9 @@ root.render(
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/gerenciar" element={<GerenciaEntrega />} />
-        <Route path="/inserir" element={<InsereEntrega />} />
+        <Route path="/inserir" element={<InsereEntregaHP />} />
+        <Route path="/inserirform" element={<InsereEntrega />} />
+        <Route path="/alterarform" element={<AlteraEntrega />} />
       </Routes>
     </Router>
   </React.StrictMode>

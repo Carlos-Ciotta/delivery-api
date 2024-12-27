@@ -48,7 +48,6 @@ function HomePage() {
           >
             <TextField id="id_user" label="Usuário" variant="outlined" onChange={(e) => setIdUser(e.target.value)} required/><br></br>
             <TextField id="password" label="Senha" variant="outlined" onChange={(e) => setPassword(e.target.value)} required/><br></br>
-            <TextField id="observacao" label="Observações (opcional)" variant="outlined" />
           </Box>
           {error && <p>{error}</p>}<br></br>
           <Button variant="contained" type='submit'>Entrar</Button>
