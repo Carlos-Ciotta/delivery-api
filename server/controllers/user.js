@@ -3,7 +3,7 @@ const User = require('../models/user')
 module.exports = {
     async getAll(_,res) {
         try {
-            const users = await User.find().select('id_user tipo password -_id');
+            const users = await User.find().select('id_user tipo password');
             if(users){
                 return res.status(200).json(users);
             }else{
@@ -17,6 +17,9 @@ module.exports = {
 
     async getById(req, res) {
         const { id } = req.params;
+        if(!(id)){
+            return res.status(400).json({message:'Todos campos são obrigatórios'})
+        }
         try{
             const user = await User.findOne({id_user:id});
             if (user) {
@@ -32,6 +35,9 @@ module.exports = {
     async Insert(req, res) {
         const { id_user,tipo, password } = req.body;
         try {
+            if(!(id_user || tipo || password)){
+                return res.status(400).json({message:'Todos campos são obrigatórios'})
+            }
             const aux = await User.findOne({id_user:id_user});
             if(aux){
                 return res.status(208).json({message:'Usuário já existe'})
@@ -49,6 +55,9 @@ module.exports = {
 
     async Delete(req, res) {
         const { id_user } = req.params;
+        if(!(id_user)){
+            return res.status(400).json({message:'Todos campos são obrigatórios'})
+        }
         try {
             const user_aux = await User.findOne({id_user:id_user})
             if(user_aux){
@@ -65,6 +74,9 @@ module.exports = {
 
     async Update(req, res) {
         const { id_user } = req.params
+        if(!(id_user)){
+            return res.status(400).json({message:'Todos campos são obrigatórios'})
+        }
         try{
             const user = await User.findOne({id_user:id_user});
             if (user) {
