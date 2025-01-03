@@ -36,8 +36,7 @@ export default function DynamicTable({ URL, tipo }) {
         const entregas = response.data;
 
         if (entregas.length > 0) {
-          // Dinamicamente configura o cabeçalho e adiciona "Ações" e "Opções"
-          setTableHead([...Object.keys(entregas[0]), "Opções", "Ações"]);
+          setTableHead([...Object.keys(entregas[0])]);
 
           // Converte objetos para arrays para exibir na tabela
           const formattedData = entregas.map((entrega) =>
@@ -46,7 +45,7 @@ export default function DynamicTable({ URL, tipo }) {
           setTableData(formattedData);
         }
       } catch (error) {
-        console.error('Erro ao buscar entregas:', error);
+        alert('Erro ao buscar entregas:');
       }
     };
 

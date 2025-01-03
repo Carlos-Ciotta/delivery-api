@@ -48,8 +48,10 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.3.0",
+    "@mui/x-date-pickers": "^7.23.3",
     "ajv": "^7.2.4",
     "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "react-router-dom": "^7.1.1"
   }

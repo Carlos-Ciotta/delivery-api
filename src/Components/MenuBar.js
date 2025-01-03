@@ -21,8 +21,6 @@ export default function MenuBar() {
     const handleCloseAlterar = () => {
         setOpenAlterar(false);
       };
-    const forminserir = FormEntrega('cadastrar');
-    const formalterar = FormEntrega('alterar');
   return (
     <Box
       sx={{
@@ -42,14 +40,14 @@ export default function MenuBar() {
 
       <Dialog open={openInserir} onClose={handleCloseInserir} fullWidth maxWidth="sm">
         <DialogContent>
-          {forminserir}<br></br>
+          <FormEntrega tipo = 'cadastrar'/><br></br>
           <Button onClick={handleCloseInserir} variant="contained">Cancelar</Button>
         </DialogContent>
       </Dialog>
 
       <Dialog open={openAlterar} onClose={handleCloseAlterar} fullWidth maxWidth="sm">
         <DialogContent>
-          {formalterar}<br></br>
+          <FormEntrega tipo = 'alterar'/><br></br>
           <Button onClick={handleCloseAlterar} variant="contained">Cancelar</Button>
         </DialogContent>
       </Dialog>
