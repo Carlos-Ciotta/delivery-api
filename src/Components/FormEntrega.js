@@ -40,7 +40,7 @@ export default function FormEntrega({tipo}){
   // Função para enviar os dados via POST
   const handleSubmit = async () => {
     try {
-      await axios.post("http://seu-servidor.com/api/pedidos", formData);
+      await axios.post("http://localhost:5000/entregas", formData);
       alert("Dados enviados com sucesso!");
     } catch (error) {
       alert("Falha ao enviar os dados.", error);
@@ -49,7 +49,7 @@ export default function FormEntrega({tipo}){
 
   const handleAlter = async () => {
     try {
-      await axios.patch(`http://seu-servidor.com/api/pedidos/${formData.id_pedido}`)
+      await axios.patch(`http://localhost:5000/entregas/:tipo/:id_entrega${formData.id_pedido}`)
       alert("Dados alterados");
     } catch (error) {
       alert("Falha ao alterar os dados.", error);
@@ -58,7 +58,7 @@ export default function FormEntrega({tipo}){
 
   const handleGetById = async () => {
     try {
-      const response = await axios.get(`http://seu-servidor.com/api/pedidos/${formData.id_pedido}`);
+      const response = await axios.get(`http://localhost:5000/entregas/${formData.id_pedido}`);
       const data = response.data;
 
       // Preenche os campos com os dados recebidos
@@ -69,6 +69,7 @@ export default function FormEntrega({tipo}){
         bairro: data.bairro || "",
         vendedor: data.vendedor || "",
         periodo: data.periodo || "",
+        data_entrega: data.data_entrega || ""
       });
 
       // Desabilita o campo ID
@@ -113,7 +114,7 @@ export default function FormEntrega({tipo}){
             Buscar
           </Button>
           </Box>)}
-        {tipo === 'inserir' &&(
+        {tipo === 'cadastrar' &&(
           <TextField
           id="id_pedido"
           label="Número Pedido"

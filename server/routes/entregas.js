@@ -13,5 +13,4 @@ router.put('/entregas/:tipo/:id_entrega', Entrega.update);
 router.put('/entregas/veiculo/:tipo/:id_entrega/:id_veiculo/:situacao', Entrega.update);
 
 
-
 module.exports = router;

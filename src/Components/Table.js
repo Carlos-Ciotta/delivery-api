@@ -25,6 +25,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function DynamicTable({ URL, tipo }) {
+  const handleUpdate = async (idEntrega, situacao, idVeiculo) => {
+    try {
+      const tipo = "veiculo"; // Valor fixo para tipo
+      const url = `/entregas/veiculo/${tipo}/${idEntrega}/${idVeiculo}/${situacao}`;
+
+      await axios.put(url);
+      alert(`Atualização bem-sucedida para entrega ${idEntrega}!`);
+    } catch (error) {
+      alert("Falha ao atualizar o status da entrega.");
+    }
+  };
+  const [selectedValues, setSelectedValues] = useState({}); // Armazena o valor selecionado para cada linha
+
+  const handleSelectChange = (rowIndex, value) => {
+    setSelectedValues((prev) => ({
+      ...prev,
+      [rowIndex]: value,
+    }));
+  };
   const [tableHead, setTableHead] = useState([]); // Cabeçalho da tabela
   const [tableData, setTableData] = useState([]); // Dados da tabela
 
@@ -75,7 +94,7 @@ export default function DynamicTable({ URL, tipo }) {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => console.log(`Button clicked for row ${rowIndex}`)}
+                  onClick={() => handleUpdate(row[0], "Aguardando", "0")}
                 >
                   Retirar
                 </Button>
@@ -84,7 +103,7 @@ export default function DynamicTable({ URL, tipo }) {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => console.log(`Button clicked for row ${rowIndex}`)}
+                  onClick={() => handleUpdate(row[0], "Entregue", "1")}
                 >
                   Finalizar
                 </Button>
@@ -115,21 +134,27 @@ export default function DynamicTable({ URL, tipo }) {
                 </TableCell>
               ))}
               <TableCell align="center">
-                <Select
-                  defaultValue=""
-                  onChange={(e) => console.log(`Selected option: ${e.target.value} for row ${rowIndex}`)}
+              <Select
+                  value={selectedValues[rowIndex] || ""}
+                  onChange={(event) =>
+                    handleSelectChange(rowIndex, event.target.value)
+                  }
+                  displayEmpty
                 >
-                  <MenuItem value=""><em>Selecione</em></MenuItem>
-                  <MenuItem value="volkswagen">Volkswagen</MenuItem>
-                  <MenuItem value="ford">Ford</MenuItem>
+                  <MenuItem value="">
+                    <em>Selecione</em>
+                  </MenuItem>
+                  <MenuItem value="1">Volkswagen</MenuItem>
+                  <MenuItem value="2">Ford</MenuItem>
                 </Select>
               </TableCell>
               <TableCell align="center">
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => console.log(`Button clicked for row ${rowIndex}`)}
-                >
+                  onClick={() => handleUpdate(row[0], "Em Andamento", selectedValues[rowIndex])}
+                  disabled={!selectedValues[rowIndex]} // Desativa o botão se nenhum veículo for selecionado
+                  >
                   Enviar
                 </Button>
               </TableCell>

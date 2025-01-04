@@ -1,18 +1,4 @@
 const Entrega = require('../models/entrega');
-/*async function excluirPrimeirosRegistros() {
-    try {
-        // Esperar pela conclusão da operação deleteMany
-        const resultado = await Entrega.deleteMany({ id_entrega: { $lt: 8000 } });
-
-        // Exibir o número de documentos excluídos
-        console.log(`Número de documentos excluídos: ${resultado.deletedCount}`);
-        return resultado;
-    } catch (error) {
-        // Exibir e lançar o erro para tratamento posterior
-        console.error('Erro ao excluir registros:', error);
-        throw error;
-    }
-}*/
 module.exports = {
     async getAll(req, res) {
         const { tipo } = req.params;
